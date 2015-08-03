@@ -1,0 +1,21 @@
+---
+# utilize ruby-installer for installing a specific ruby version
+
+- name: install prereqs for ruby-installer
+  # https://github.com/postmodern/ruby-install#requirements
+  apt: name={{ item }} state=present
+  with_items:
+    - bash
+    - wget
+    - coreutils # md5sum
+    - tar
+    - bzip2
+    - patch
+    - gcc
+
+- name: download ruby-installer
+  git: repo=https://github.com/postmodern/ruby-install.git
+       dest=/usr/lib/
+
+- name: install ruby version {{ ruby_version }}
+  command: /usr/lib/ruby-install/bin/ruby-install --system ruby {{ ruby_version }}

@@ -1,0 +1,20 @@
+---
+# configure the plots2 file structure and user permissions.
+
+# file system setup
+- name: generate user to run software as
+  user: name={{ project_user }} state=present
+        createhome=no
+        system=yes
+
+- name: copy config.yml into config/
+  copy: src=config.yml
+        dest={{ project_path }}/config/config.yml
+        owner={{ project_user }}
+  notify: plots_server_restart
+
+- name: install database configuration
+  template: src=database.yml.j2
+            dest={{ project_path }}/config/database.yml
+            owner={{ project_user }}
+  notify: plots_server_restart

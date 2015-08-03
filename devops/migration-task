@@ -1,0 +1,52 @@
+---
+# configure the plots2 database migrations.
+# TODO investigate how to remove repetitious sudo + sudo_user
+
+# assume db is present and run migrations
+- name: run any database migrations
+  command: rake db:migrate
+  args:
+           chdir: "{{ project_path }}"
+  sudo: true
+  sudo_user: "{{ project_user }}"
+  register: db_migration
+  ignore_errors: True
+
+# fallback if no database: fire up a brand new database
+- name: run an initial database setup if migrations fail
+  command: rake db:setup
+  args:
+           chdir: "{{ project_path }}"
+  sudo: true
+  sudo_user: "{{ project_user }}"
+  register: db_setup
+  when: migration|failed
+  ignore_errors: True
+
+# secondary fallback: fire up a brand new database step-by-step
+- name: create the database if setup fails
+  command: rake db:create
+  args:
+           chdir: "{{ project_path }}"
+  sudo: true
+  sudo_user: "{{ project_user }}"
+  register: db_create
+  when: db_setup|failed
+
+- name: run migrations if a database was created
+  command: rake db:migrate
+  args:
+           chdir: "{{ project_path }}"
+  sudo: true
+  sudo_user: "{{ project_user }}"
+  # only run if a database was created step-by-step
+  when: db_create|success
+
+- name: seed the database if a database was created
+  command: rake db:seed
+  args:
+           chdir: "{{ project_path }}"
+  sudo: true
+  sudo_user: "{{ project_user }}"
+  # only run if a database was created step-by-step
+  when: db_create|success

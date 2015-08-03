@@ -1,0 +1,18 @@
+---
+# default values for this project
+
+project_path: /var/lib/plots
+project_user: plots
+
+repo_url: https://github.com/publiclab/plots2.git
+repo_branch: master
+
+ruby_version: 2.1.2
+
+database_host: '' # leave empty string for localhost
+database_port: '' # leave empty string for localhost
+database_username: publiclab
+database_password: password
+database_test_name: publiclab_test
+database_staging_name: publiclab_stage
+database_prod_name: publiclab

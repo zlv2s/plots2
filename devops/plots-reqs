@@ -1,0 +1,4 @@
+---
+# plots web service requires a number of roles to be present
+dependencies:
+ - { role: 46c3-bundler }

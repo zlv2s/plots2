@@ -1,0 +1,4 @@
+---
+# all playbooks together
+- include: plots.yml
+- include: mysql.yml

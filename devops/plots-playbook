@@ -1,0 +1,5 @@
+---
+# perform plots deployment
+- hosts: plots
+  roles:
+    - b9d8-plots

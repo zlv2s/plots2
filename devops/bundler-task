@@ -1,0 +1,11 @@
+---
+# install bundler onto the system and use it to install all gems to the system
+
+- name: install bundler with system wide access
+  gem: name=bundler
+       state=latest
+       user_install=no
+
+- name: install project gems to the system using bundler
+  command: bundle install --system
+  args: chdir={{ project_path }}

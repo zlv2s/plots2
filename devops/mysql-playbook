@@ -1,0 +1,5 @@
+---
+# perform plots deployment
+- hosts: mysql
+  roles:
+    - a7fd-mysql

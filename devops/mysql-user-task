@@ -1,0 +1,8 @@
+---
+# create mysql user and grant privs to the databases for plots2
+
+- name: configure mysql user
+  mysql_user: name={{ database_username }}
+              password={{ database_password }}
+              state=present
+              priv={{ database_dev_name }}.*:ALL/{{ database_staging_name }}.*:ALL/{{ database_prod_name }}.*:ALL

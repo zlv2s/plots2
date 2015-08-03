@@ -1,0 +1,5 @@
+---
+# bundler needs ruby and the code (which has the Gemfile) to be installed first
+dependencies:
+  - { role: b9ef-ruby }
+  - { role: dad1-gitrepo }

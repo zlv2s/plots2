@@ -1,0 +1,31 @@
+[x] rvm 2.1.2
+    b9ef-ruby {{ ruby_version }}
+[x] bundle install
+    46c3-bundler
+[x] repo user
+    b9d8-plots {{ project_user }}
+[x] clone repo
+    dad1-gitrepo {{ repo_url, project_path, repo_branch }}
+    TODO
+    [ ] does it do a fetch each time?
+    [ ] ... as a dependency?
+[x] mysql
+    a7fd-mysql
+[x] mysql user
+    b9d8-plots {{ database_username, database_password, database_[dev|staging|prod]_name }}
+[x] config/database.yml
+    b9d8-plots {{ project_path }} {{ database_username, database_password, database_[dev|staging|prod]_name, database_host, database_port }}
+[x] rake db:setup || rake db:create && rake db:migrate; rake db:seed
+    b9d8-plots {{ project_path, project_user }}
+[x] rake db:migrate
+    b9d8-plots
+[x] rake test
+    b9d8-plots {{ project_user, project_path }}
+[ ] nginx
+    TODO Mike's needs to be split in two.
+    [ ] nginx role configs nginx and dumps site template to disk
+    [ ] service roles use template task to produce sites for each
+    [ ] service roles call nginx role's handler to restart nginx
+[ ] ssl + nginx definition
+[ ] run passenger || rails && nginx
+[ ] restart ^

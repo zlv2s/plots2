@@ -1,0 +1,7 @@
+---
+# download and possibly update the git code base
+
+- name: Download the codebase from github
+  git: repo={{ repo_url }}
+       dest={{ project_path }}
+       version={{ repo_branch }}

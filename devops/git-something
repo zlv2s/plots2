@@ -1,0 +1,17 @@
+---
+# configure the plots2 codebase.
+
+# one time setup tasks -- pull out into playbook
+- { include: dbsetup.yml }
+- { include: filespace.yml }
+
+# repeated tasks for updated deployments
+# TODO update git repo? or is this done by the role requirement?
+- { include: dbmigrate.yml }
+
+# run tests
+- name: require tests before deployment
+  command: rake test
+  args:
+           chdir: "{{ project_path }}"
+  sudo_user: "{{ project_user }}"

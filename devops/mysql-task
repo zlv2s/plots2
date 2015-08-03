@@ -1,0 +1,11 @@
+---
+# install and configure mysql
+- name: installing mysql client, server, and dev files
+  apt: name={{ item }} state=installed
+  with_items:
+    - libmysqlclient-dev
+    - mysql-client
+    - mysql-server
+
+- name: run mysql server and make sure it starts on boot
+  service: name=mysqld state=started enabled=on
