@@ -25,7 +25,7 @@
   <div class="alert alert-info" role="alert">This wiki page hasn't been edited for a while. If you see anything that needs updating, please help out!</div>
 <% end %>
 
-<% if @node.has_tag('sidebar:none') %>
+<% unless @node.has_tag('sidebar:none') %>
   <% if (@wikis.nil? && @notes.nil?) || @node.has_tag('sidebar:featured') %>
     <%= render :partial => "sidebar/featured" %>
   <% else %>
