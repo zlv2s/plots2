@@ -62,6 +62,7 @@
     if (blurredLocation.isBlurred()) tags = tags + ',' + 'location:blurred'
     if ($('#placenameDisplay').val() != 'Location unavailable') tags = tags + ',' + 'place:' + parameterize($('#placenameDisplay').val());
     addTag(tags);
+    <% if params[:reload] == "true" %>setTimeout(function() { location.reload(); }, 3000);<% end %>
   }
 
   function parameterize(input) {
