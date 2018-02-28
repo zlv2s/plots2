@@ -54,17 +54,21 @@ class SearchService
   end
 
   def find_nodes(input, limit = 5)
-    Node.limit(limit)
-      .order('nid DESC')
-      .where('node.status = 1 AND title LIKE ?', '%' + input + '%')
-  end
-
-  ## search for node title only
-  ## FIXme with solr
-  def find_notes(input, limit = 5)
-    Node.limit(limit)
-      .order('nid DESC')
-      .where('type = "note" AND node.status = 1 AND title LIKE ?', '%' + input + '%')
+    if ActiveRecord::Base.connection.adapter_name == 'Mysql2'
+      Node.search(input)
+        .group(:nid)
+        .includes(:node)
+        .references(:node)
+        .limit(limit)
+        .where("node.type": ["note", "page"], "node.status": 1)
+        .order('node.changed DESC')
+    else 
+      Node.limit(limit)
+        .group(:nid)
+        .where(type: ["note", "page"], status: 1)
+        .order(changed: :desc)
+        .where('title LIKE ?', '%' + input + '%')
+    end
   end
 
   def find_maps(input, limit = 5)
