@@ -29,7 +29,7 @@ class Tag < ActiveRecord::Base
   validates :name, format: { with: /\A[\w\.:-]*[\w\.!-]*\z/, message: 'can only include letters, numbers, and dashes' }
   # validates :name, :uniqueness => { case_sensitive: false  }
 
-  def id
+  def id 
     tid
   end
 
