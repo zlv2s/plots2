@@ -12,8 +12,16 @@ gem 'responders', '~> 2.0' # for Rails 4.2
 
 gem 'turbolinks'
 
+
+
 # Whenever provides a clear syntax for writing and deploying cron jobs
 gem 'whenever', require: false
+
+# To implement incoming mail processing microframework
+gem 'mailman', require: false
+
+# To convert html to markdown
+gem 'reverse_markdown'
 
 # run with `bundle install --without production` or `bundle install --without mysql` to exclude this
 group :mysql, :production do
