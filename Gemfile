@@ -12,8 +12,6 @@ gem 'responders', '~> 2.0' # for Rails 4.2
 
 gem 'turbolinks'
 
-
-
 # Whenever provides a clear syntax for writing and deploying cron jobs
 gem 'whenever', require: false
 
