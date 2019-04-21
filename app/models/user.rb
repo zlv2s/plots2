@@ -249,10 +249,11 @@ class User < ActiveRecord::Base
       node_ids += NodeTag.where(tid: tagname.tid).collect(&:nid)
     end
 
-    Node.where(nid: node_ids)
+    Node.where(nid: node_ids, node_type: 'note')
     .includes(:revision, :tag)
     .references(:node_revision)
     .where('node.status = 1')
+    .where(type: node_type)
     .where("(created >= #{start_time.to_i} AND created <= #{end_time.to_i}) OR (timestamp >= #{start_time.to_i}  AND timestamp <= #{end_time.to_i})")
     .order('node_revisions.timestamp DESC')
     .distinct
